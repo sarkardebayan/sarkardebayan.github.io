@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Fira+Mono&family=Fira+Sans:wght@300&display=swap');
+/* font-family: 'Fira Code', monospace;
+
+font-family: 'Fira Mono', monospace;
+
+font-family: 'Fira Sans', sans-serif; */
+:root{
+    --bg: #1d1f21;
+    --acc1: #afafaf;
+
+}
+*{
+    background-color: var(--bg);
+    color: white;
+    font-family: 'Fira Sans', sans-serif;
+}
+body {
+    margin: 0;
+    padding: 20px;
+    overflow: hidden;
+}
+a{
+    all:unset;
+    cursor: pointer;
+
+}
+.container{
+    display: flex;
+    height: 100vh;
+}
+
+.welcome-section{
+    margin: auto;
+}
+h2{
+    padding: 5px;
+}
+p{
+    color:var(--acc1);
+    padding: 5px;
+}
+.intext-link{
+    color:white;
+}
