@@ -7,14 +7,49 @@
     <link rel="stylesheet" href="style.css">
     <title>Hi!</title>
 </head>
-<body>
+<body id = "home">
+    <div class="nav">
+        <div class="nav-item"><a href="#home" class="nav-link">About</a></div>
+        <div class="nav-item"><a href="#projects" class="nav-link">Projects</a></div>
+    </div>
     <div class="container">
-        <div class="welcome-section">
+        <div class="section">
             <h2>Hi!</h2>
-            <p>I'm Debayan Sarkar, a fresher at <a class="intext-link" href="https://www.iiserkol.ac.in" target="_blank">IISER Kolkata</a></p>
-            <p>I code sometimes as a hobby. Hence, this page. Maybe I'll add some stuff here later.</p>
-            <p>Till then, check this <a target = "_blank" class = "intext-link" href = "/sudoku-solver">Sudoku Solver</a> out.</p>
+            <p>I'm Debayan Sarkar, a fresher at <a class="intext-link" href="https://www.iiserkol.ac.in" target="_blank">IISER Kolkata.</a> Currently I'm hoping to major in Physics, but lets see if I change my mind in the coming years</p>
+            <p>I code sometimes as a hobby. Hence, this page. I'm still learning the basics HTML, CSS, Javascript and Latex. And for programming languages, I'm okay at Python, trying to get better C and C++.</p>
         </div>
     </div>
-</body>
+    <div class="container" id = "projects">
+        <div class = "section cards">
+            <div class="card">
+                <div class="card-title">
+                    <h3>Sudoku Solver</h2>
+                </div>
+                <div class="card-content">
+                    <p>This is a browser based <a target="_blank" class="intext-link" href="https://en.wikipedia.org/wiki/Sudoku">sudoku</a> solver written in Javascript. It uses <a target="_blank" class="intext-link" href="https://en.wikipedia.org/wiki/Backtracking">Backtracking</a> to solve the puzzle.</p>
+                    <p>Make sure that the puzzle you enter into the solver is a solvable one.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="card-links">
+                        <a href= "https://github.com/sarkardebayan/sudoku-solver" target = "_blank">CODE</a></div>
+                        <div class="card-links"><a href = "/sudoku-solver" target="_blank">TRY</a></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <h3>PyBall</h2>
+                </div>
+                <div class="card-content">
+                    <p>This is an implementation of the classic <a target="_blank" href="https://en.wikipedia.org/wiki/Flappy_Bird" class="intext-link">Flappy Bird</a> game written in python, using the <a href="https://en.wikipedia.org/wiki/Pygame" class="intext-link" target="_blank">pygame</a> module.</p>
+                    <p>Used shapes instead of sprites, so the graphics are pretty minimal. To learn about the pyagme module, check their <a target="_blank" href="https://www.pygame.org/docs/" class="intext-link">documentation</a></p>
+                </div>
+                <div class="card-footer">
+                    <div class="card-links">
+                        <a href= "https://github.com/sarkardebayan/PyBall" target = "_blank">CODE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
 </html>

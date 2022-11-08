@@ -1,23 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Fira+Mono&family=Fira+Sans:wght@300&display=swap');
-/* font-family: 'Fira Code', monospace;
 
-font-family: 'Fira Mono', monospace;
-
-font-family: 'Fira Sans', sans-serif; */
 :root{
     --bg: #1d1f21;
     --acc1: #afafaf;
 
 }
 *{
-    background-color: var(--bg);
+    background-color: transparent;
     color: white;
     font-family: 'Fira Sans', sans-serif;
+}
+html{
+    scroll-behavior: smooth;
 }
 body {
     margin: 0;
     padding: 20px;
-    overflow: hidden;
+    background-color: var(--bg);
 }
 a{
     all:unset;
@@ -29,9 +28,48 @@ a{
     height: 100vh;
 }
 
-.welcome-section{
+.section{
+    margin: auto;
+    width: 100%;
+}
+.card{
+    border: 1px var(--acc1) solid;
+    border-radius: 2%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    transition: border-color ease-in-out 200ms;
+}
+@media(max-width: 950px){
+    .card{
+        margin-top: 5%;
+    }
+}
+.card:hover{
+    border-color: white;
+}
+.card-title{
     margin: auto;
 }
+.card-content{
+    margin: auto;
+}
+.card-footer{
+    display: flex;
+    margin: auto;
+    justify-content: space-around;
+}
+.card-links{
+    width: 100%;
+    padding: 10%;
+    margin: auto;
+}
+.card-links a{
+    padding: 10px;
+    border: 2px solid var(--acc1);
+    transition: all ease-in-out 200ms;
+}
+
 h2{
     padding: 5px;
 }
@@ -41,4 +79,54 @@ p{
 }
 .intext-link{
     color:white;
+}
+
+.nav{
+    display: flex;
+    width: 95%;
+    position: fixed;
+    background-color: transparent;
+}
+.nav-item{
+    padding: 5px;
+}   
+.nav-link{
+    color: white;
+    transition: color ease-in-out 100ms;
+}
+
+.cards{
+    padding: 15px;
+}
+@media (min-width: 950px){
+    .card{
+        width: 33%;
+        height: 33%;
+    }
+    .section{
+        width: 60%;
+    }
+    .cards{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+}
+@media (min-width: 600px){
+    .nav{
+        justify-content: flex-end;
+    }
+    .nav-link{
+        color: var(--acc1);
+    }
+    .nav-link:hover{
+        color: white;
+    }
+    .card-links a:hover{
+        background-color: #fefefe;
+        border: 2px solid #fefefe;
+        color: black;
+    
+    }
 }
