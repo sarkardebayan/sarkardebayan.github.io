@@ -12,10 +12,11 @@
 }
 html{
     scroll-behavior: smooth;
+    margin: 0;
 }
 body {
     margin: 0;
-    padding: 20px;
+    padding: 0 20px;
     background-color: var(--bg);
 }
 a{
@@ -63,6 +64,8 @@ a{
 .card-links{
     width: 100%;
     padding: 1%;
+    display: flex;
+    justify-content: center;
     /* margin: auto; */
 }
 .card-links a{
