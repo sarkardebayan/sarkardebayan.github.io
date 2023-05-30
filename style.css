@@ -69,10 +69,14 @@ a{
     /* margin: auto; */
 }
 .card-links a{
-    padding: 10px;
-    border: 2px solid var(--acc1);
-    transition: all ease-in-out 200ms;
+    padding: 0px;
+    font-size: 1.5rem;
+    /* border: 2px solid var(--acc1); */
     margin-right: 2%;
+}
+.card-links a > i{
+	color: var(--acc1);
+	transition: all ease-in-out 200ms;
 }
 
 h2{
@@ -129,10 +133,10 @@ p{
     .nav-link:hover{
         color: white;
     }
-    .card-links a:hover{
-        background-color: #fefefe;
-        border: 2px solid #fefefe;
-        color: black;
+    .card-links a > i:hover{
+        /* background-color: #fefefe; */
+        /* border: 2px solid #fefefe; */
+        color: #fff;
     
     }
 }
