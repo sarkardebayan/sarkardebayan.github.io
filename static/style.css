@@ -23,7 +23,7 @@ body {
     background-color: var(--bg);
     display: grid;
     gap: 3rem;
-    grid-template-columns: 16rem 1fr;
+    grid-template-columns: 20rem 1fr;
     min-height: 100vh;
     max-width: 100vw;
     /* overflow-x: hidden; */
