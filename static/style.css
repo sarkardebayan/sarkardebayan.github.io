@@ -144,7 +144,11 @@ p{
         justify-content: center;
         align-items: center;
     }
+    .nav-list{
+        justify-content: center;
+    }
     .nav{
+        text-transform: uppercase;
         z-index: 5;
         position: fixed;
         top:0;
