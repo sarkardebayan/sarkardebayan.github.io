@@ -39,7 +39,7 @@ a{
     max-height: 100vh;
     background-color: var(--nav-bg);
     overflow: hidden;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -51,7 +51,7 @@ a{
     list-style: none;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
     padding-block: 2rem;
     font-size: 2rem;
