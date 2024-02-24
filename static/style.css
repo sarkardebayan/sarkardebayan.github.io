@@ -44,6 +44,23 @@ a{
     flex-direction: column;
     justify-content: space-around;
 }
+.nav-prof{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 2rem;
+}
+.nav-prof img{
+    width: 50%;
+    border-radius: 50%;
+    border: 2px solid var(--acc1);
+    margin-bottom: 1rem;
+}
+.nav-prof h3, p {
+    /* padding: 0; */
+    margin: 0;
+}
 .nav-list{
     height: 95%;
     margin: 0;
@@ -143,6 +160,9 @@ p{
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+    .nav-prof{
+        display: none;
     }
     .nav-list{
         justify-content: center;
