@@ -5,35 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css"> -->
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
         crossorigin="anonymous">
     <link rel="shortcut icon" href="/images/prof.jpg" type="image/x-icon">
     <title>It's never lupus</title>
 </head>
 
-<body id="home">
+<body>
     <button class="nav-toggle"><i class="fas fa-bars"></i></button>
-    <div class="nav" data-visible="false">
-        <div class="nav-prof">
-            <img src="/images/prof.jpg" alt="dplol">
-            <h3>Debayan Sarkar</h3>
-            <p><a href="https://github.com/TheSillyCoder" target="_blank" class="intext-link">@TheSillyCoder</a></p>
-            <p>IISER Kolkata</p>
-        </div>
-        <ul class="nav-list" >
-            <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="/notes.html" class="nav-link">Notes</a></li>
-            <li class="nav-item"><a href="/software.html" class="nav-link">Software</a></li>
-            <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
-        </ul>
-        <div class="socials">
-            <a href="https://github.com/TheSillyCoder" target="_blank"><i class="fa-brands fa-github"></i></a>
-            <a href="mailto:ds22ms002@iiserkol.ac.in"><i class="fa fa-envelope"></i></a>
-            <a href="https://www.last.fm/user/sillycoder" target="_blank"><i class="fa-brands fa-lastfm"></i></a>
-        </div>
-    </div>
+    <navbar-component class="nav" data-visible="false" data-active="home"></navbar-component>
     <div class="section centered-content">
         <h2>Hi!</h2>
         <p>I'm Debayan Sarkar, a sophomore at <a class="intext-link" href="https://www.iiserkol.ac.in"
@@ -48,6 +29,6 @@
         <p></p>
     </div>
 </body>
+<script src="/js/components/navbar.js"></script>
 <script src="/js/main.js"></script>
-
 </html>
