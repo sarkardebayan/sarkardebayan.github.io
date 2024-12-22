@@ -20,7 +20,7 @@ class Navbar extends HTMLElement {
         <div class="socials">
             <a href="https://github.com/TheSillyCoder" target="_blank"><i class="fa-brands fa-github"></i></a>
             <a href="mailto:ds22ms002@iiserkol.ac.in"><i class="fa fa-envelope"></i></a>
-            <a href="" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://www.linkedin.com/in/debayan-sarkar-iik/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
             <a href="https://www.last.fm/user/sillycoder" target="_blank"><i class="fa-brands fa-lastfm"></i></a>
         </div>
         `
