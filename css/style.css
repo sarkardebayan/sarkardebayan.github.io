@@ -187,6 +187,7 @@ p{
         margin-left: 0;
     }
     .nav-toggle{
+        all: unset;
         display: block;
         position: fixed;
         top: 1rem;
