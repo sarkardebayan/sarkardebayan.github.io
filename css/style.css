@@ -144,7 +144,6 @@ p{
     .section{
         width: 60%;
         margin-left: 420px;
-        max-width: 80ch;
     }
     .socials a > i:hover{
         color: #fff;
@@ -153,11 +152,11 @@ p{
         text-shadow: 0 0 1px #fff;
     }
 }
-/* @media (min-width: 1010px){ */
-/*     .section{ */
-/*         width: 80ch; */
-/*     } */
-/* } */
+@media (min-width: 1010px){
+    .section{
+        width: 80ch;
+    }
+}
 @media (max-width:1200px ){
     body{
         display: flex;
