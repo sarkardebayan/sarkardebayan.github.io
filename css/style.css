@@ -34,9 +34,9 @@ a{
 
 }
 .nav{
-    position: sticky;
+    position: fixed;
     top:0;
-    max-height: 100vh;
+    min-height: 100dvh;
     background-color: var(--nav-bg);
     overflow: hidden;
     /* text-transform: uppercase; */
@@ -140,9 +140,11 @@ p{
 .hero-img{
     width: 90%;
 }
-@media (min-width: 950px){
+@media (min-width: 1200px){
     .section{
         width: 60%;
+        margin-left: 420px;
+        max-width: 80ch;
     }
     .socials a > i:hover{
         color: #fff;
@@ -151,12 +153,12 @@ p{
         text-shadow: 0 0 1px #fff;
     }
 }
-@media (min-width: 1010px){
-    .section{
-        width: 80ch;
-    }
-}
-@media (max-width:950px ){
+/* @media (min-width: 1010px){ */
+/*     .section{ */
+/*         width: 80ch; */
+/*     } */
+/* } */
+@media (max-width:1200px ){
     body{
         display: flex;
         flex-direction: column;
