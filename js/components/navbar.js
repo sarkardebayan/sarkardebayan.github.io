@@ -7,7 +7,7 @@ class Navbar extends HTMLElement {
         <div class="nav-prof">
             <img src="/images/prof.jpg" alt="dplol">
             <h3>Debayan Sarkar</h3>
-            <p><a href="https://github.com/nayabed" target="_blank" class="intext-link">@nayabed</a></p>
+            <p><a href="https://github.com/TheSillyCoder" target="_blank" class="intext-link">@TheSillyCoder</a></p>
             <p>IISER Kolkata</p>
         </div>
         <ul class="nav-list" >
@@ -18,7 +18,7 @@ class Navbar extends HTMLElement {
            <li id="blog" class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
         </ul>
         <div class="socials">
-            <a href="https://github.com/nayabed" target="_blank"><i class="fa-brands fa-github"></i></a>
+            <a href="https://github.com/TheSillyCoder" target="_blank"><i class="fa-brands fa-github"></i></a>
             <a href="mailto:ds22ms002@iiserkol.ac.in"><i class="fa fa-envelope"></i></a>
             <a href="https://www.linkedin.com/in/debayan-sarkar-iik/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
             <a href="https://www.last.fm/user/sillycoder" target="_blank"><i class="fa-brands fa-lastfm"></i></a>
