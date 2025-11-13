@@ -22,7 +22,7 @@ class Navbar extends HTMLElement {
             <a href="mailto:ds22ms002@iiserkol.ac.in"><i class="fa fa-envelope"></i></a>
             <a href="https://www.linkedin.com/in/debayan-sarkar-iik/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
             <a href="https://www.last.fm/user/sillycoder" target="_blank"><i class="fa-brands fa-lastfm"></i></a>
-            <a href="https://www.instagram.com/debayansarkar_/" target="_blank"><i class="fa-brands fa-instagram"></i> </a>
+            <a href="https://www.instagram.com/d3b4yan/" target="_blank"><i class="fa-brands fa-instagram"></i> </a>
         </div>
         `
     }
