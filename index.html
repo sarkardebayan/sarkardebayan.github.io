@@ -3,39 +3,754 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="36TVq1Rr4mnT_YCRvonvVrP8dMg4H9wI0uz7Ig8iEy4" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
-        crossorigin="anonymous">
-    <link rel="shortcut icon" href="/images/prof.jpg" type="image/x-icon">
-    <title>It's never lupus</title>
+    <title>debayan</title>
+
+    <!-- MathJax -->
+    <script>
+        window.MathJax = {
+            tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            background: #111;
+            background-image: url("data:image/svg+xml;utf8,\
+                                    <svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'>\
+                                      <rect width='40' height='40' fill='%23111'/>\
+                                      <path d='M40 0H0V40' fill='none' stroke='%23333' stroke-width='1'/>\
+                                    </svg>");
+            font-family: monospace;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .desktop {
+            width: 100vw;
+            height: calc(100vh - 30px);
+            position: relative;
+            margin-top: 40px;
+            /* push below top taskbar */
+        }
+
+        .icon {
+            width: 90px;
+            margin: 20px;
+            text-align: center;
+            cursor: pointer;
+            color: #ccc;
+        }
+
+        .icon svg {
+            width: 40px;
+            height: 40px;
+            fill: #ccc;
+        }
+
+        .icon:hover svg,
+        .icon:hover {
+            fill: #f00;
+            color: #f00;
+        }
+
+        .window {
+            position: absolute;
+            background: #222;
+            border: 1px solid #555;
+            width: 120ch;
+            height: 90ch;
+            display: none;
+            resize: both;
+            overflow: hidden;
+            flex-direction: column;
+            /* prevent title bar from scrolling */
+        }
+
+        .window.active {
+            border-color: #f00;
+        }
+
+        .title-bar {
+            background: #333;
+            padding: 5px;
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            flex: 0 0 auto;
+        }
+
+        .close-btn {
+            color: #f00;
+            cursor: pointer;
+        }
+
+        .content {
+            overflow: auto;
+            /* scrolling only inside content */
+            padding: 10px;
+            color: #ddd;
+            flex: 1 1 auto;
+        }
+
+        .file {
+            cursor: pointer;
+            padding: 3px;
+        }
+
+        .file:hover {
+            background: #333;
+            color: #f00;
+        }
+
+        .taskbar {
+            height: 30px;
+            background: #000;
+            border-bottom: 1px solid #444;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            gap: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+        }
+
+        .task-left {
+            display: flex;
+            gap: 10px;
+        }
+
+        .task-item {
+            padding: 2px 8px;
+            border: 1px solid #555;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .task-item.active {
+            border-color: #f00;
+            color: #f00;
+        }
+
+        .clock {
+            color: #fff;
+            font-size: 14px;
+            text-align: right;
+            margin-right: 1em;
+        }
+
+        .intext-link {
+            color: #f00;
+            transition: 200ms ease-in-out;
+            font-weight: 500;
+        }
+
+        .hero-img {
+            width: 90%;
+            align: center;
+        }
+
+        .music-player {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: #ccc;
+        }
+
+        .track-name {
+            color: #fff;
+            border-bottom: 1px solid #444;
+            padding-bottom: 4px;
+        }
+
+        audio {
+            width: 100%;
+            filter: invert(1);
+            /* makes default controls match dark theme */
+        }
+
+        .playlist {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .track {
+            padding: 4px;
+            cursor: pointer;
+            border: 1px solid #333;
+        }
+
+        .track:hover {
+            background: #222;
+            color: #f00;
+            border-color: #f00;
+        }
+
+        .searchContainer {
+            display: flex;
+        }
+
+        #blogSearch {
+            flex-grow: 1;
+            margin-bottom: 8px;
+            background: #111;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 4px;
+            outline: none;
+        }
+
+        /* =========================
+                MOBILE LAYOUT
+           ========================= */
+        @media (max-width: 768px) {
+
+            body {
+                overflow: auto;
+            }
+
+            .desktop {
+                height: auto;
+                margin-top: 40px;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .icon {
+                width: 20%;
+                margin: 10px 0;
+                text-align: center;
+                padding-left: 20px;
+            }
+
+            /* WINDOWS → FULLSCREEN */
+            .window {
+                position: fixed !important;
+                top: 40px !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: calc(100vh - 40px) !important;
+                resize: none;
+                display: none;
+                z-index: 999;
+            }
+
+            .window.active {
+                display: block;
+            }
+
+            /* disable dragging cursor */
+            .title-bar {
+                cursor: default;
+            }
+
+            /* content fills screen */
+            .content {
+                height: calc(100% - 30px);
+            }
+
+            /* TASKBAR */
+            .taskbar {
+                height: 40px;
+                font-size: 14px;
+            }
+
+            .task-item {
+                font-size: 12px;
+                padding: 2px 6px;
+            }
+
+            /* CLOCK */
+            .clock {
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <button class="nav-toggle"><i class="fas fa-bars"></i></button>
-    <navbar-component class="nav" data-visible="false" data-active="home"></navbar-component>
-    <div class="section">
-        <h2>Hi!</h2>
-        <p>I'm Debayan Sarkar, a 4th year Physics major at <a class="intext-link" href="https://www.iiserkol.ac.in"
-                target="_blank">IISER
-                Kolkata.</a>
-            Sometimes, I code as a hobby. Hence, this website. Coming to my programming skills, I'm okay at <a
-                href="https://www.python.org" target="_blank" class="intext-link">Python</a> want to get better at <a
-                href="https://en.wikipedia.org/wiki/C_(programming_language)" target="_blank" class="intext-link">C</a>.
-            Also, trying to
-            work on my <a href="https://www.latex-project.org/" class="intext-link" target="_blank">LaTeX</a>, will
-            probably try <a target="_blank" class="intext-link" href="https://typst.app/">Typst</a> later.</p>
-        <p>No I don't spend my entire day staring at my computer. I used to like cubing till I got bored of it. I like
-            chess, but dont really play much anymore. I love listening to music. Don't have a particular genre though. I
-            also like watching Movies and TV
-            Shows. So basically an average Joe. I don't have much to add here for now. Guess that's all. Maybe I'll add
-            some stuff here later. Feel free to click around!</p>
-        <p></p>
+
+    <div class="taskbar">
+        <div class="task-left" id="taskbar"></div>
+        <div class="clock" id="clock"></div>
     </div>
+
+    <div class="desktop">
+
+        <div class="icon" onclick="openWindow('aboutWin')">
+            <!-- <svg viewBox="0 0 24 24"> -->
+            <!--     <rect x="3" y="4" width="18" height="14" /> -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <g clip-path="url(#clip0_15_82)">
+                        <rect width="24" height="24"></rect>
+                        <g filter="url(#filter0_d_15_82)">
+                            <path
+                                d="M14.3365 12.3466L14.0765 11.9195C13.9082 12.022 13.8158 12.2137 13.8405 12.4092C13.8651 12.6046 14.0022 12.7674 14.1907 12.8249L14.3365 12.3466ZM9.6634 12.3466L9.80923 12.8249C9.99769 12.7674 10.1348 12.6046 10.1595 12.4092C10.1841 12.2137 10.0917 12.022 9.92339 11.9195L9.6634 12.3466ZM4.06161 19.002L3.56544 18.9402L4.06161 19.002ZM19.9383 19.002L20.4345 18.9402L19.9383 19.002ZM16 8.5C16 9.94799 15.2309 11.2168 14.0765 11.9195L14.5965 12.7737C16.0365 11.8971 17 10.3113 17 8.5H16ZM12 4.5C14.2091 4.5 16 6.29086 16 8.5H17C17 5.73858 14.7614 3.5 12 3.5V4.5ZM7.99996 8.5C7.99996 6.29086 9.79082 4.5 12 4.5V3.5C9.23854 3.5 6.99996 5.73858 6.99996 8.5H7.99996ZM9.92339 11.9195C8.76904 11.2168 7.99996 9.948 7.99996 8.5H6.99996C6.99996 10.3113 7.96342 11.8971 9.40342 12.7737L9.92339 11.9195ZM9.51758 11.8683C6.36083 12.8309 3.98356 15.5804 3.56544 18.9402L4.55778 19.0637C4.92638 16.1018 7.02381 13.6742 9.80923 12.8249L9.51758 11.8683ZM3.56544 18.9402C3.45493 19.8282 4.19055 20.5 4.99996 20.5V19.5C4.70481 19.5 4.53188 19.2719 4.55778 19.0637L3.56544 18.9402ZM4.99996 20.5H19V19.5H4.99996V20.5ZM19 20.5C19.8094 20.5 20.545 19.8282 20.4345 18.9402L19.4421 19.0637C19.468 19.2719 19.2951 19.5 19 19.5V20.5ZM20.4345 18.9402C20.0164 15.5804 17.6391 12.8309 14.4823 11.8683L14.1907 12.8249C16.9761 13.6742 19.0735 16.1018 19.4421 19.0637L20.4345 18.9402Z"
+                                fill="#000000"></path>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+            <div>about</div>
+        </div>
+
+        <div class="icon" onclick="openWindow('musicWin')">
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path
+                        d="M15 1H4V9H3C1.34315 9 0 10.3431 0 12C0 13.6569 1.34315 15 3 15C4.65685 15 6 13.6569 6 12V5H13V9H12C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12V1Z">
+                    </path>
+                </g>
+            </svg>
+            <div>music</div>
+        </div>
+
+        <div class="icon" onclick="openWindow('notesWin')">
+            <svg viewBox="0 0 24 24">
+                <rect x="4" y="3" width="16" height="18" />
+            </svg>
+            <div>notes</div>
+        </div>
+        <div class="icon" onclick="openWindow('softwareWin')">
+            <!-- <svg viewBox="0 0 24 24"> -->
+            <!--     <rect x="4" y="3" width="16" height="18" /> -->
+            <!-- </svg> -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="64px" height="64px" viewBox="0 0 24 24">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path
+                        d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z">
+                    </path>
+                </g>
+            </svg>
+            <div>software</div>
+        </div>
+
+        <div class="icon" onclick="openWindow('blogFolder')">
+            <svg viewBox="0 0 24 24">
+                <path d="M3 6h6l2 2h10v10H3z" />
+            </svg>
+            <div>blog</div>
+        </div>
+
+        <!-- Windows -->
+        <div id="aboutWin" class="window" style="top:50px; left:150px;">
+            <div class="title-bar" onmousedown="dragStart(event, this.parentElement)">
+                <span>about</span>
+                <span class="close-btn" onclick="closeWindow('aboutWin')">X</span>
+            </div>
+            <div class="content">
+
+                <h2>Hi!</h2>
+                <p>I'm Debayan Sarkar, a 4th year Physics major at <a class="intext-link"
+                        href="https://www.iiserkol.ac.in" target="_blank">IISER
+                        Kolkata.</a>
+                    Sometimes, I code as a hobby. Hence, this website. Coming to my programming skills, I'm okay at <a
+                        href="https://www.python.org" target="_blank" class="intext-link">Python</a> want to get better
+                    at <a href="https://en.wikipedia.org/wiki/C_(programming_language)" target="_blank"
+                        class="intext-link">C</a>.
+                    Also, trying to
+                    work on my <a href="https://www.latex-project.org/" class="intext-link" target="_blank">LaTeX</a>,
+                    will
+                    probably try <a target="_blank" class="intext-link" href="https://typst.app/">Typst</a> later.</p>
+                <p>No I don't spend my entire day staring at my computer. I used to like cubing till I got bored.
+                    I like
+                    chess, but dont really play much anymore. I love listening to music. Don't have a particular genre
+                    though. I
+                    also like watching Movies and TV
+                    Shows. So basically an average Joe. I don't have much to add here for now. Guess that's all. Maybe
+                    I'll add
+                    some stuff here later. Feel free to click around!</p>
+                <p></p>
+            </div>
+        </div>
+
+        <div id="musicWin" class="window" style="top:100px; left:200px;">
+            <div class="title-bar" onmousedown="dragStart(event, this.parentElement)">
+                <span>music</span>
+                <span class="close-btn" onclick="closeWindow('musicWin')">X</span>
+            </div>
+            <div class="content">
+                <h2>Music</h2>
+                <p> I love listening to music, sometimes a bit too much. I mostly listen to Rock, Hip hop, Rap, and
+                    Electronic
+                    Music
+                    and the related subgenres (I'm really bad at music genres btw). However, it's not really a hard
+                    limit, as long as I like what I'm
+                    listening to,
+                    I'm gonna listen to it. I'm one of those people who listen to the same music over and over again,
+                    instead of
+                    discovering new stuff. (It's mostly my friends who put me on new stuff)
+                </p>
+                <p>
+                    Enough about my listening habbits. A few years back I started getting into gamedev, and obviously I
+                    was
+                    watching <a href="https://www.youtube.com/@Brackeys" target="_blank"
+                        class="intext-link">Brackeys</a> (YAYY
+                    he's back). There, he introduced
+                    <a href="https://boscaceoil.net/oldindex.html" target="_blank" class="intext-link">Bosca Ceoil</a>
+                    (damn, it
+                    has <a href="https://yurisizov.itch.io/boscaceoil-blue" target="_blank" class="intext-link">a new
+                        open
+                        source remake</a> now), for
+                    making music for our games. And man, that sent me down quite the rabbit hole. I eventually
+                    got bored
+                    of
+                    gamedev, but I still really
+                    enjoy Music Production, I've been getting into Sound Synthesis
+                    recently.
+                    I don't own any hardware Synths (YET), but my software synthesizer of choice is <a
+                        href="https://vital.audio/" target="_blank" class="intext-link">Vital</a>, an amazing open
+                    source synth,
+                    made by the amazing <a href="https://tytel.org/" target="blank" class="intext-link">Matt
+                        Tytel</a>.
+                </p>
+                <p> I've also recently gotten into DJing, I dont have a DJ deck (YET), my DJ software of choice is
+                    <a href="https://mixxx.org/" target="_blank" class="intext-link">Mixxx</a>. Mixing tracks is really
+                    fun :)
+                </p>
+                <p> Maybe someday I'll put my music and my mixes here. </p>
+                <p>
+                    Here are some other related links:
+                <ul>
+                    <li><a href="https://last.fm/user/sillycoder" target="_blank" class="intext-link">@sillycoder</a> on
+                        Last.fm (My lastfm account)
+                    </li>
+                    <li><a href="https://www.youtube.com/@diggingthegreats" target="_blank" class="intext-link">Digging
+                            The
+                            Greats</a> on YouTube (Fun Music content)</li>
+                    <li> <a href="https://www.instagram.com/ramonpang/" target="_blank"
+                            class="intext-link">@ramonpang</a> on Instagram (Great Electronic Music Content)
+                    <li> <a href="https://www.instagram.com/on_fm_radio/" target="_blank"
+                            class="intext-link">@on_fm_radio</a> on Instagram (Even more great Music Content)
+                </ul>
+                </p>
+                <p>Here's a few songs that I really like</p>
+                <div class="music-player">
+                    <div class="track-name" id="trackName">no track selected</div>
+
+                    <audio id="audioPlayer" controls></audio>
+
+                    <div class="playlist">
+                        <div class="track" onclick="loadTrack('music/Sora - Traces.mp3')">Traces by Sora</div>
+                        <p>
+                            This is a song from the 2003 album <strong>Re.sort</strong> by the Japanese artist
+                            <strong>Sora</strong> aka <strong>Takeshi Kurosawa</strong>.
+                            I found this album quite recently, and I like it a lot - Beautiful Japanese
+                            electronica, with really <i>pretty</i> samples. Being somebody who obsessively listens
+                            to Four Tet, it's quite obvious that I would love this album lol. This album was released a
+                            year before Four Tet's Rounds by the way. <a class="intext-link" target="_blank"
+                                href="https://web.archive.org/web/20050223123536/http://homepage.mac.com/s_ra/resort.html">This
+                                is an archived version of Sora's webpage for this album</a>. The oldest available
+                            archive
+                            is from November 2003.
+                        </p>
+                        <div class="track" onclick="loadTrack('music/Four Tet - Angel Echoes.mp3')"> Angel Echoes by
+                            Four Tet </div>
+                        <p>
+                            I obviously love <strong>Four Tet</strong> aka <strong>Keiran Hebden</strong>. And this is
+                            the opener for his 2010 album <strong>There is Love in You</strong>, and it really sets the
+                            tone for what's to come while also beautifully transitioning into my favorite track on this
+                            album
+                            <strong>Love Cry</strong>. By the way,
+                            <a class="intext-link" target="_blank"
+                                href="https://www.youtube.com/watch?v=QEUGilncRJs">here's four tet talking about the
+                                making of two of the tracks on this album</a> - namely <i>Love Cry</i> and <i>Sing</i>.
+                        </p>
+                        <div class="track" onclick="loadTrack('music/파란노을 (Parannoul) - 흰천장 (White Ceiling).mp3')">흰천장
+                            (White Ceiling) by 파란노을 (Parannoul)</div>
+                        <p>
+                            This is a track from the 2021 album <strong>To See the Next Part of the Dream</strong> by
+                            the anonymous South Korean artist <strong>Parannoul</strong>. It's also my favorite track on
+                            the album - a 10 minute long heavy and noisy shoegaze masterpiece. Originally released just
+                            on bandcamp on a pay what you want basis, it contains numerous samples from various sources
+                            -
+                            <i>All about Lily Chou-Chou</i>, <i>Neon Genesis Evangelion</i> etc. Oh For crying out loud,
+                            the album opener <i>Beautiful World</i> starts with a Lily Chou-Chou sample. Even the album
+                            cover is
+                            a re-drawn frame from the movie. This album is raw, loud and noisy with a bittersweet and
+                            summer-y feel. If that sounds like something you'd like, give it a listen. <a
+                                class="intext-link" target="_blank"
+                                href="https://parannoul.bandcamp.com/album/to-see-the-next-part-of-the-dream">Read more
+                                about the album from Parannoul himself</a> on bandcamp.
+                        </p>
+                        <!-- <div class="track" onclick="loadTrack('music/Tobenai Tsubasa.mp3')"> -->
+                        <!--     飛べない翼 by Lily Chou-Chou </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="notesWin" class="window" style="top:150px; left:250px;">
+            <div class="title-bar" onmousedown="dragStart(event, this.parentElement)">
+                <span>notes</span>
+                <span class="close-btn" onclick="closeWindow('notesWin')">X</span>
+            </div>
+            <div class="content">
+                <h2>Notes and Assignments</h2>
+                <p>I sometimes type up notes for certain courses (Maths and Physics) in Latex. I also have typed up some
+                    assignment solutions. I'm gonna try and add more stuff there soon.
+                    I have some incomplete notes as well, that I need to finish. <a
+                        href="https://github.com/TheSillyCoder/notes-and-assignments" target="_blank"
+                        class="intext-link">The complete notes can be found here</a>.
+                </p>
+                <p><a href="https://github.com/TheSillyCoder/tex" target="_blank" class="intext-link">The Latex code for
+                        these notes and some other incomplete notes can be found here</a></p>
+            </div>
+        </div>
+        <div id="softwareWin" class="window" style="top:170px; left:300px;">
+            <div class="title-bar" onmousedown="dragStart(event, this.parentElement)">
+                <span>software</span>
+                <span class="close-btn" onclick="closeWindow('softwareWin')">X</span>
+            </div>
+            <div class="content">
+                <h2>Software</h2>
+                <p>I use <a target="_blank" class="intext-link" href="https://neovim.io/">nvim</a>/<a
+                        class="intext-link" href="https://www.vim.org/" target="_blank">vim</a> as my text editor, <a
+                        class="intext-link" href="https://archlinux.org/" target="_blank">Arch Linux</a> as my OS and <a
+                        class="intext-link" href="https://hyprland.org" target="_blank">Hyprland</a> as my
+                    compositor/window manager. Before eventually settling on Arch, I had already used
+                    <a href="https://kubuntu.org/" target="_blank" class="intext-link">Kubuntu</a>, <a
+                        href="https://www.kali.org/" target="_blank" class="intext-link">Kali</a>, <a
+                        href="https://www.debian.org/" target="_blank" class="intext-link">Debian</a>, <a
+                        class="intext-link" href="https://ubuntu.com/" target="_blank">ubuntu</a> before (yeah, I know).
+                    I started using linux in 2016, with <a href="https://kubuntu.org/" target="_blank"
+                        class="intext-link">Kubuntu</a>.
+                    However, I've learnt most of what I know about linux and how it works in the last 2 - 3 years, and
+                    Im still learning. It's mostly been fun, except when it wasn't. Funnily enough, ever since I
+                    switched to Arch, its been
+                    smooth sailing. <br><a href="https://wiki.archlinux.org/" target="_blank" class="intext-link">LONG
+                        LIVE THE ARCH WIKI</a>
+                </p>
+                <img class="hero-img" src="images/screenshot.png" alt="A screenshot of my system">
+                <p>This config is mostly of my own, with some stuff borrowed from here and there. No I'm not talking
+                    about my <a href="https://awesomewm.org/" class="intext-link">AwesomeWM</a>
+                    config. I like configuring my system to get everything just how I want them to be! <a
+                        target="_blank" class="intext-link" href="https://github.com/TheSillyCoder/dotfiles">You can
+                        check out my dotfiles for this system here.</a></p>
+
+                <p>I also have a <a target="_blank" href="https://suckless.org" class="intext-link">suckless</a> build
+                    on my github that uses <a href="https://dwm.suckless.org/" class="intext-link"
+                        target="_blank">dwm</a> as the window manager. However, I didnt really use it.<br>
+                    <a href="https://github.com/TheSillyCoder/dwm-files" class="intext-link" target="_blank">You can
+                        find the dwm files here.</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Blog Folder -->
+        <div id="blogFolder" class="window" style="top:80px; left:100px;">
+            <div class="title-bar" onmousedown="dragStart(event, this.parentElement)">
+                <span>blog</span>
+                <span class="close-btn" onclick="closeWindow('blogFolder')">X</span>
+            </div>
+            <div class="content">
+                <div class="searchContainer"><input type="text" id="blogSearch" placeholder="search..."
+                        oninput="filterBlog()"></div>
+
+                <div id="blogList">
+                    <div class="file" onclick="openWindow('firstPost')">firstPost.txt</div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Blog Posts -->
+        <div id="firstPost" class="window" style="top:120px; left:200px;">
+            <div class="title-bar" onmousedown="dragStart(event, this.parentElement)">
+                <span>firstPost</span>
+                <span class="close-btn" onclick="closeWindow('firstPost')">X</span>
+            </div>
+            <div class="content">
+                <h2>First blog post?</h2>
+                <p>I don't really have much to post here for now, I will start adding things here sometime later
+                    hopefully. By the way, did you know that there are
+                    infinitely many prime numbers? You probably did, but I'll prove it below anyway, since I have
+                    nothing better to do. The following proof for the infinitude of primes is due to Euclid (300 B.C.):
+                </p>
+                <p>
+                    Let $S = \{p_1, \dots ,p_n\}$ be an arbitrary finite set of $n \in \mathbb{N}$ primes. Define
+                    $$P := \prod_{i = 1}^{n} p_i$$
+                    and, $q := P + 1$. Observe that $q > p_k ~ \forall p_k \in S \Rightarrow q \notin S$. Now, there are
+                    two possible cases.
+                <p><strong>Case 1:</strong> $q$ is prime, in which case we conclude that there's a prime which is not
+                    in the original set $S$. </p>
+                <p><strong>Case 2:</strong> $q$ is not prime. This implies there's a prime $p$ that divides $q$. Let's
+                    assume $p \in S$. Then, $p$ must also divide $P$, and hence must also divide $q - P = 1$. Since no
+                    prime divides 1, we have arrived at a contradiction. Hence, $p \notin S$. Again, we have shown that
+                    there's a prime number that is not in the original set $S$.</p>
+
+                Hence, we have shown that for any arbitrary finite set of primes $S$, $\exists p \in $ such that $p$ is
+                prime, but $p \notin S$. Therefore, there must be infinitely many prime numbers. This concludes our
+                proof.
+                </p>
+                <p> A really simple but cool proof. Also, now I know that MathJax is working correctly. </p>
+                <p> Bye :)</p>
+
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        let zIndex = 1;
+        let currentWin = null;
+        let offsetX, offsetY;
+
+        function openWindow(id) {
+            const win = document.getElementById(id);
+            if (!win) return;
+            // mobile: close all others
+            if (window.innerWidth <= 768) {
+                document.querySelectorAll('.window').forEach(w => {
+                    // w.style.display = 'none';
+                    wid = w.getAttribute("id");
+                    closeWindow(wid);
+                });
+            }
+            win.style.display = 'flex';
+            focusWindow(win);
+            addTaskItem(id);
+
+            if (id.startsWith('post') && window.MathJax && MathJax.typesetPromise) {
+                MathJax.typesetPromise([win]).catch(() => { });
+            }
+        }
+
+        function closeWindow(id) {
+            document.getElementById(id).style.display = 'none';
+            removeTaskItem(id);
+        }
+
+        function focusWindow(win) {
+            document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
+            win.classList.add('active');
+            win.style.zIndex = ++zIndex;
+            updateTaskbar(win.id);
+        }
+
+        function dragStart(e, win) {
+            if (window.innerWidth <= 768) return; // disable on mobile
+            focusWindow(win);
+            currentWin = win;
+            offsetX = e.clientX - win.offsetLeft;
+            offsetY = e.clientY - win.offsetTop;
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+        }
+
+        function drag(e) {
+            if (!currentWin) return;
+
+            let newX = e.clientX - offsetX;
+            let newY = e.clientY - offsetY;
+
+            // Prevent going above taskbar (30px)
+            if (newY < 30) newY = 30;
+
+            currentWin.style.left = newX + 'px';
+            currentWin.style.top = newY + 'px';
+        }
+
+        function dragEnd() {
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('mouseup', dragEnd);
+            currentWin = null;
+        }
+
+        function addTaskItem(id) {
+            if (document.querySelector(`[data-id="${id}"]`)) return;
+            const taskbar = document.getElementById('taskbar');
+            const item = document.createElement('div');
+            item.className = 'task-item';
+            item.dataset.id = id;
+            item.innerText = id;
+            item.onclick = () => {
+                const win = document.getElementById(id);
+                if (win.style.display === 'none') win.style.display = 'block';
+                focusWindow(win);
+            };
+            taskbar.appendChild(item);
+            updateTaskbar(id);
+        }
+
+        function removeTaskItem(id) {
+            const item = document.querySelector(`[data-id="${id}"]`);
+            if (item) item.remove();
+        }
+
+        function updateTaskbar(activeId) {
+            document.querySelectorAll('.task-item').forEach(i => {
+                i.classList.toggle('active', i.dataset.id === activeId);
+            });
+        }
+
+        // focus on click
+
+        document.querySelectorAll('.window').forEach(win => {
+            win.addEventListener('mousedown', () => focusWindow(win));
+        });
+
+        // CLOCK
+        function updateClock() {
+            const now = new Date();
+            const options = {month: 'short', day: '2-digit', year: 'numeric'};
+            const date = now.toLocaleDateString('en-US', options);
+            const time = now.toLocaleTimeString('en-US');
+            document.getElementById('clock').innerText = `${time} | ${date}`;
+        }
+        function loadTrack(src) {
+            const player = document.getElementById('audioPlayer');
+            const name = document.getElementById('trackName');
+
+            player.src = src;
+            name.textContent = src.split('/').pop();
+
+            player.play();
+        }
+        function filterBlog() {
+            const query = document.getElementById("blogSearch").value.toLowerCase();
+
+            const listItems = document.querySelectorAll("#blogList .file");
+
+            listItems.forEach(item => {
+                const name = item.textContent.toLowerCase();
+
+                // get corresponding window by id
+                const winId = item.getAttribute("onclick").match(/'(.*?)'/)[1];
+                const win = document.getElementById(winId);
+
+                let contentMatch = false;
+
+                if (win) {
+                    const content = win.querySelector(".content").innerText.toLowerCase();
+                    contentMatch = content.includes(query);
+                }
+
+                if (name.includes(query) || contentMatch) {
+                    item.style.display = "";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+
 </body>
-<script src="/js/components/navbar.js"></script>
-<script src="/js/main.js"></script>
 
 </html>
